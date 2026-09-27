@@ -1,0 +1,76 @@
+/* CERFODES design system tokens
+   Source: CERFODES Brand Guidelines v1 (April 2023) + PRD (25 Sept 2026).
+   Only the four brand hues are used; shades exist for contrast only. */
+
+/* Futura stand-in. Swap the src URLs for the licensed Futura PT web font files
+   (Book 400, Medium 500, Bold 700, Heavy 800) before launch – nothing else changes. */
+@font-face { font-family: "CERFODES Futura"; font-weight: 400; font-display: swap; src: url("../fonts/jost-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "CERFODES Futura"; font-weight: 500; font-display: swap; src: url("../fonts/jost-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "CERFODES Futura"; font-weight: 600; font-display: swap; src: url("../fonts/jost-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "CERFODES Futura"; font-weight: 700; font-display: swap; src: url("../fonts/jost-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "CERFODES Futura"; font-weight: 800; font-display: swap; src: url("../fonts/jost-latin-800-normal.woff2") format("woff2"); }
+
+:root {
+  /* Brand hues */
+  --royal: #041790;          /* Royal Blue – 50% */
+  --pelorous: #389DC9;       /* Pelorous – 30% */
+  --yellow: #FFB706;         /* Selective Yellow – 15% */
+  --white: #FFFFFF;          /* Paper White – 5% */
+
+  /* Shades (contrast only) */
+  --royal-950: #010834;
+  --royal-900: #020d5a;
+  --royal-800: #03127a;
+  --royal-600: #2a3aa6;
+  --royal-300: #9aa3d6;
+  --royal-100: #e3e6f5;
+  --royal-50:  #f3f4fb;
+  --pelorous-700: #1d6a8d;   /* text-safe Pelorous on white (5.4:1) */
+  --pelorous-200: #bfe0ef;
+  --pelorous-50:  #eef7fb;
+  --yellow-700: #b07c00;
+  --yellow-100: #fff1cc;
+
+  --ink: var(--royal-950);
+  --ink-soft: #3c4470;       /* royal-tinted body grey, 9:1 on white */
+  --line: rgba(4, 23, 144, .12);
+  --line-strong: rgba(4, 23, 144, .24);
+
+  --ok: var(--pelorous-700);
+  --warn: var(--yellow-700);
+  --bad: #9b1c31;            /* status only; not a brand surface colour */
+
+  /* Type */
+  --font: "Futura PT", "CERFODES Futura", Futura, "Century Gothic", system-ui, sans-serif;
+  --fw-book: 400; --fw-medium: 500; --fw-bold: 700; --fw-heavy: 800;
+  --fs-display: clamp(2.6rem, 1.4rem + 5.2vw, 6rem);
+  --fs-h1: clamp(2.2rem, 1.3rem + 3.6vw, 4.4rem);
+  --fs-h2: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem);
+  --fs-h3: clamp(1.3rem, 1.05rem + 1vw, 1.8rem);
+  --fs-lead: clamp(1.08rem, 1rem + .35vw, 1.3rem);
+  --fs-body: 1.0625rem;
+  --fs-small: .9rem;
+  --tracking-tight: -.02em;
+
+  /* Shape – ONE token switches the site between Kora rounded and brand-guide square */
+  --radius: 22px;
+  --radius-sm: calc(var(--radius) * .55);
+  --radius-pill: 999px;
+
+  /* Space & layout */
+  --gutter: clamp(16px, 4vw, 48px);
+  --maxw: 1320px;
+  --section: clamp(72px, 10vw, 150px);
+
+  /* Motion */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --dur: .9s;
+
+  --shadow: 0 20px 60px -24px rgba(1, 8, 52, .35);
+}
+
+html[data-corners="square"] {
+  --radius: 0px;
+  --radius-pill: 0px;
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client approvals | CERFODES</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/apps.css">
+</head>
+<body class="app">
+
+<header class="app-bar">
+  <a class="nav-logo" href="../en/"><img src="../assets/img/logo/logo-horizontal-white.webp" alt="CERFODES" width="132" height="21"></a>
+  <span class="app-bar-name">Client access<small>Approvals via WhatsApp · prototype</small></span>
+  <span class="app-bar-spacer"></span>
+  <button class="linkish" data-change-company type="button" hidden>Switch company</button>
+</header>
+
+<main class="app-main" style="max-width:760px;margin-inline:auto">
+
+  <section data-view="picker">
+    <div class="app-head"><div><h1>Open your approval workspace</h1>
+      <p>CERFODES sends each client company a secure, expiring WhatsApp link — no separate portal login. This prototype stands in for that link: pick a company to see what your contact receives.</p></div></div>
+    <div class="company-pick" data-company-list></div>
+    <p class="gate-note" style="margin-top:18px;max-width:520px">One access per client company. Real links expire and are single-use; this demo link stays open so you can try Approve and Request changes.</p>
+  </section>
+
+  <section data-view="thread" hidden>
+    <div class="wa-shell">
+      <div class="wa-head">
+        <span class="avatar">CD</span>
+        <div><strong>CERFODES</strong><br><small data-company-name>—</small></div>
+      </div>
+      <div class="wa-body" data-thread></div>
+      <div class="wa-foot" data-changes-form hidden>
+        <p style="margin:0 0 8px;font-weight:var(--fw-medium);color:var(--royal)" data-changes-for></p>
+        <textarea data-changes-text placeholder="What would you like changed?"></textarea>
+        <div class="btn-row" style="margin-top:10px">
+          <button class="btn btn-primary btn-sm" data-changes-send><span class="btn-roll"><span>Send request</span><span aria-hidden="true">Send request</span></span></button>
+          <button class="btn btn-ghost btn-sm" data-changes-cancel type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <p class="gate-note" style="margin-top:16px">Your reply syncs straight back to the deliverable record in the consultant portal and notifies the project lead. No document is stored on your device beyond this session.</p>
+  </section>
+
+</main>
+
+<div class="toast" data-toast></div>
+<script type="module" src="client.js"></script>
+</body>
+</html>
