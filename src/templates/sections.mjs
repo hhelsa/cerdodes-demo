@@ -12,7 +12,7 @@ export function hero(c) {
   return `<section class="hero" data-hero aria-labelledby="hero-title">
   <div class="hero-pin-wrap" data-curtain>
     <div class="hero-pin">
-      <div class="hero-media" data-parallax>${pic(c, 'presenter', { alt: t({ en: 'A CERFODES consultant leads a planning workshop with a client team', fr: 'Une consultante CERFODES anime un atelier de planification avec une équipe cliente' }), eager: true, cls: 'hero-img' })}</div>
+      <div class="hero-media" data-parallax>${pic(c, 'boardroom', { alt: t({ en: 'CERFODES consultants review a project with a client team around a table', fr: 'Des consultants CERFODES font le point sur un projet avec une équipe cliente' }), eager: true, cls: 'hero-img' })}</div>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="wrap hero-inner">
         <p class="eyebrow on-dark hero-eyebrow">${dots('dots-pop')}<span class="hero-fade" style="--d:0">${esc(t(h.eyebrow))}</span></p>
