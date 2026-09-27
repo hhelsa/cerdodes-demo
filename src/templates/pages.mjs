@@ -6,7 +6,7 @@ import * as S from './sections.mjs';
 
 export function home(c) {
   const body = [
-    S.hero(c), S.featured(c), S.beforeAfterSection(c), S.servicesTabs(c), S.whoWeAre(c), S.process(c),
+    S.hero(c), S.featured(c), S.clientsSection(c), S.beforeAfterSection(c), S.servicesTabs(c), S.whoWeAre(c), S.process(c),
     S.mapSection(c), S.teamSection(c), S.testimonialsSection(c), S.impactSection(c), S.leadershipQuote(c),
     S.caseStudySection(c), S.faqSection(c), S.insightsSection(c), S.socialSection(c), S.contactSection(c)
   ].join('\n');
@@ -31,7 +31,8 @@ export function about(c) {
   </section>
   ${S.process(c)}
   ${S.teamSection(c)}
-  ${S.impactSection(c)}`;
+  ${S.impactSection(c)}
+  ${S.clientsSection(c)}`;
   return page(c, { title: t(ui.nav.about), description: t(a.lead), body });
 }
 

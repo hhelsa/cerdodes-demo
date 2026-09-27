@@ -226,6 +226,23 @@ ul[class], ol[class] { list-style: none; }
 .ba-ico svg { width: 15px; }
 .ba-after .ba-ico { background: var(--yellow); color: var(--royal); }
 
+/* ---------- Client logos: auto-scrolling marquee ---------- */
+.clients { overflow: hidden; }
+.client-marquee { overflow: hidden; margin-top: clamp(8px, 2vw, 24px); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.client-track { display: flex; width: max-content; animation: client-marquee 50s linear infinite; }
+.client-set { display: flex; align-items: center; list-style: none; }
+.client-logo { flex: none; width: clamp(120px, 12vw, 160px); padding: 0 clamp(16px, 2.4vw, 32px); display: flex; align-items: center; justify-content: center; }
+.client-logo img { max-width: 100%; max-height: 48px; width: auto; height: auto; filter: grayscale(1); opacity: .55; transition: filter .3s, opacity .3s; }
+.client-marquee:hover .client-logo img, .client-marquee:focus-within .client-logo img { filter: grayscale(0); opacity: 1; }
+.client-marquee:hover .client-track, .client-marquee:focus-within .client-track { animation-play-state: paused; }
+@keyframes client-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .client-track { animation: none; }
+  .client-set[aria-hidden] { display: none; }
+  .client-marquee { overflow-x: auto; }
+  .client-logo img { opacity: 1; filter: none; }
+}
+
 /* ---------- Hero: sticky scroll-driven zoom reveal ----------
    .hero-pin-wrap shares the data-curtain discovery attribute (so the same
    scrollSequence() engine writes --p onto it) but not the curtain-pin class,
@@ -233,10 +250,10 @@ ul[class], ol[class] { list-style: none; }
    zoom-while-pinned motion instead. Below 768px / reduced-motion, parallax()
    in site.js keeps using its existing simple scrollY-based motion untouched. */
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .js .hero-pin-wrap { position: relative; height: 165vh; }
+  .js .hero-pin-wrap { position: relative; height: 210vh; --pd: clamp(0, calc((var(--p, 0) - .6) * 2.5), 1); }
   .js .hero-pin { position: sticky; top: 0; }
   .js .hero-media { transition: transform .08s linear; transform: scale(calc(1 + var(--p, 0) * .22)); }
-  .js .hero-inner { transition: opacity .08s linear, transform .08s linear; opacity: calc(1 - var(--p, 0) * .9); transform: translateY(calc(var(--p, 0) * -30px)) scale(calc(1 - var(--p, 0) * .05)); }
+  .js .hero-inner { transition: opacity .08s linear, transform .08s linear; opacity: calc(1 - var(--pd) * .9); transform: translateY(calc(var(--pd) * -30px)) scale(calc(1 - var(--pd) * .05)); }
 }
 
 /* ---------- Tabs (sliding indicator) ---------- */
