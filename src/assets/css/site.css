@@ -227,7 +227,7 @@ ul[class], ol[class] { list-style: none; }
 .ba-after .ba-ico { background: var(--yellow); color: var(--royal); }
 
 /* ---------- Client logos: auto-scrolling marquee ---------- */
-.clients { overflow: hidden; }
+.clients { overflow: hidden; padding-block-start: clamp(24px, 3vw, 48px); }
 .client-marquee { overflow: hidden; margin-top: clamp(8px, 2vw, 24px); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .client-track { display: flex; width: max-content; animation: client-marquee 50s linear infinite; }
 .client-set { display: flex; align-items: center; list-style: none; }
