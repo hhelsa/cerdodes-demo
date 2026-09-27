@@ -88,13 +88,20 @@ function reveals() {
   }
 }
 
-/* ---------- Hero parallax + scroll-linked recede ---------- */
+/* ---------- Hero parallax + scroll-linked recede ----------
+   Below 768px (or when the page has no hero-pin-wrap, e.g. inner pages'
+   .phero-media) this simple scrollY-based version stays in charge. At
+   768px+ with motion allowed, heroZoomSequence()'s CSS-driven --p takes
+   over .hero-media/.hero-inner instead, so this cedes that pair to avoid
+   two writers fighting over the same inline transform each frame. */
 function parallax() {
   if (reduced) return;
   const el = $('[data-parallax]'); if (!el) return;
   const h = el.parentElement;
   const inner = $('.hero-inner');
+  const desktopZoomActive = () => inner && matchMedia('(min-width: 768px)').matches;
   addEventListener('scroll', () => requestAnimationFrame(() => {
+    if (desktopZoomActive()) return;
     const y = scrollY; if (y > h.offsetHeight) return;
     el.style.transform = `translate3d(0, ${y * 0.28}px, 0)`;
     if (inner) {
@@ -146,6 +153,70 @@ function curtainSequences() {
       if (idx !== last) { last = idx; buttons[idx].click(); }
     });
   }
+}
+
+/* ---------- Services: sticky-stacking cards (1024px+, JS, motion allowed) ----------
+   Below that (or no-js/reduced-motion) the plain tabs() click/keyboard
+   tablist below still works exactly as it does today: panels stay
+   hidden/shown one at a time, nothing here changes that base behaviour.
+   Above it, CSS (gated the same way) un-hides every panel and makes each
+   one sticky at a slightly deeper offset so they visually stack as the
+   next rolls over the last; this only keeps the tab bar's active state
+   and sliding indicator in sync with whichever card is topmost — it
+   never calls .click() on the tab buttons, since tabs()'s own handler
+   moves focus on click and that would steal focus on every scroll tick. */
+function serviceStack() {
+  if (reduced) return;
+  const root = $('#services .tabs'); if (!root) return;
+  const panels = $$('.svc-panel', root);
+  const tabList = $$('.tab-bar [role="tab"]', root);
+  const ind = $('.tab-ind', root);
+  const mq = matchMedia('(min-width: 1024px)');
+  const moveInd = t => { if (t && ind) { ind.style.width = t.offsetWidth + 'px'; ind.style.transform = `translateX(${t.offsetLeft}px)`; } };
+  const setActive = i => {
+    tabList.forEach((t, j) => { const on = j === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    moveInd(tabList[i]);
+  };
+  const io = new IntersectionObserver(entries => {
+    if (!mq.matches) return;
+    const top = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (top) setActive(panels.indexOf(top.target));
+  }, { threshold: [0.25, 0.5, 0.75, 0.95], rootMargin: '-96px 0px -30% 0px' });
+  panels.forEach(p => io.observe(p));
+
+  // Clear (or restore) the hidden attribute itself, not just its CSS display
+  // effect, so assistive tech sees exactly what's visually stacked/shown.
+  const apply = () => {
+    if (mq.matches) panels.forEach(p => (p.hidden = false));
+    else panels.forEach((p, i) => (p.hidden = !tabList[i] || tabList[i].getAttribute('aria-selected') !== 'true'));
+  };
+  apply();
+  mq.addEventListener('change', apply);
+}
+
+/* ---------- Asymmetric parallax drift ----------
+   A background image drifts at a different rate than the page scroll
+   while its own section is near the viewport — the classic foreground/
+   background asymmetry, applied only where nothing else already owns
+   that element's transform (avoids the .zoom hover-scale elements). */
+function imageDrift() {
+  if (reduced) return;
+  const els = $$('[data-drift]'); if (!els.length) return;
+  const active = new Set();
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    active.forEach(el => {
+      const r = el.getBoundingClientRect();
+      const center = r.top + r.height / 2 - innerHeight / 2;
+      el.style.transform = `translate3d(0, ${(-center * .12).toFixed(1)}px, 0) scale(1.12)`;
+    });
+  };
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) active.add(e.target); else active.delete(e.target);
+  }), { rootMargin: '20% 0px 20% 0px' });
+  els.forEach(el => io.observe(el));
+  addEventListener('scroll', () => { if (!ticking && active.size) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
 }
 
 /* ---------- Tabs with sliding indicator ---------- */
@@ -429,4 +500,4 @@ function consent() {
   $$('[data-consent-open]').forEach(b => b.addEventListener('click', () => (box.hidden = false)));
 }
 
-ready(); nav(); reveals(); parallax(); curtainSequences(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();
+ready(); nav(); reveals(); parallax(); curtainSequences(); serviceStack(); imageDrift(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();

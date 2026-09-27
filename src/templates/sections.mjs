@@ -10,26 +10,30 @@ const byId = (list, id) => list.find(x => x.id === id);
 export function hero(c) {
   const t = c.t; const h = ui.hero; const cs = caseStudies[0];
   return `<section class="hero" data-hero aria-labelledby="hero-title">
-  <div class="hero-media" data-parallax>${pic(c, 'presenter', { alt: t({ en: 'A CERFODES consultant leads a planning workshop with a client team', fr: 'Une consultante CERFODES anime un atelier de planification avec une équipe cliente' }), eager: true, cls: 'hero-img' })}</div>
-  <div class="hero-shade" aria-hidden="true"></div>
-  <div class="wrap hero-inner">
-    <p class="eyebrow on-dark hero-eyebrow">${dots('dots-pop')}<span class="hero-fade" style="--d:0">${esc(t(h.eyebrow))}</span></p>
-    <h1 id="hero-title" class="hero-title" aria-label="${esc(t(h.title))}"><span aria-hidden="true">${split(t(h.title))}</span></h1>
-    <p class="hero-lead hero-fade" style="--d:1">${esc(t(h.lead))}</p>
-    <div class="hero-ctas hero-fade" style="--d:2">
-      ${btn(t(h.cta1), c.href('contact'), { variant: 'yellow' })}
-      ${btn(t(h.cta2), '#services', { variant: 'glass' })}
-    </div>
-    <div class="hero-bottom">
-      <div class="hero-sectors hero-fade" style="--d:3">
-        <p class="sr-only">${esc(t(h.sectorsLabel))}</p>
-        <ul class="chips">${h.sectors.map(s => `<li class="chip chip-glass">${esc(t(s))}</li>`).join('')}</ul>
+  <div class="hero-pin-wrap" data-curtain>
+    <div class="hero-pin">
+      <div class="hero-media" data-parallax>${pic(c, 'presenter', { alt: t({ en: 'A CERFODES consultant leads a planning workshop with a client team', fr: 'Une consultante CERFODES anime un atelier de planification avec une équipe cliente' }), eager: true, cls: 'hero-img' })}</div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <p class="eyebrow on-dark hero-eyebrow">${dots('dots-pop')}<span class="hero-fade" style="--d:0">${esc(t(h.eyebrow))}</span></p>
+        <h1 id="hero-title" class="hero-title" aria-label="${esc(t(h.title))}"><span aria-hidden="true">${split(t(h.title))}</span></h1>
+        <p class="hero-lead hero-fade" style="--d:1">${esc(t(h.lead))}</p>
+        <div class="hero-ctas hero-fade" style="--d:2">
+          ${btn(t(h.cta1), c.href('contact'), { variant: 'yellow' })}
+          ${btn(t(h.cta2), '#services', { variant: 'glass' })}
+        </div>
+        <div class="hero-bottom">
+          <div class="hero-sectors hero-fade" style="--d:3">
+            <p class="sr-only">${esc(t(h.sectorsLabel))}</p>
+            <ul class="chips">${h.sectors.map(s => `<li class="chip chip-glass">${esc(t(s))}</li>`).join('')}</ul>
+          </div>
+          <a class="case-card hero-fade" style="--d:4" href="#case-study">
+            <span class="case-thumb">${pic(c, cs.image, { alt: '', sizes: '120px' })}</span>
+            <span class="case-copy"><small>${dots()} ${esc(t(h.newCase))} ${sampleTag(c, cs.placeholder)}</small><strong>${esc(t(cs.title))}</strong></span>
+            <span class="case-arrow">${arrow}</span>
+          </a>
+        </div>
       </div>
-      <a class="case-card hero-fade" style="--d:4" href="#case-study">
-        <span class="case-thumb">${pic(c, cs.image, { alt: '', sizes: '120px' })}</span>
-        <span class="case-copy"><small>${dots()} ${esc(t(h.newCase))} ${sampleTag(c, cs.placeholder)}</small><strong>${esc(t(cs.title))}</strong></span>
-        <span class="case-arrow">${arrow}</span>
-      </a>
     </div>
   </div>
   ${ciRule('hero-rule on-dark')}
@@ -76,7 +80,7 @@ export function servicesTabs(c) {
   const tabs = services.map((s, i) => `<button role="tab" id="tab-${s.id}" aria-controls="panel-${s.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(t(s.name))}</button>`).join('');
   const panels = services.map((s, i) => {
     const q = byId(testimonials, s.quote.testimonial);
-    return `<div class="svc-panel" role="tabpanel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" ${i ? 'hidden' : ''}>
+    return `<div class="svc-panel" role="tabpanel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" style="--i:${i}" ${i ? 'hidden' : ''}>
       <div class="svc-copy">
         <span class="svc-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
         <h3 class="h3">${esc(t(s.tagline))}</h3>
@@ -256,7 +260,7 @@ export function leadershipQuote(c) {
   const t = c.t; const q = ui.quote;
   return `<section class="section lq dark" aria-label="${esc(t(q.role))}">
   <div class="wrap lq-grid">
-    <figure class="lq-portrait" data-reveal>${pic(c, 'handshake', { alt: '', sizes: '(min-width: 900px) 40vw, 100vw' })}</figure>
+    <figure class="lq-portrait" data-reveal>${pic(c, 'handshake', { alt: '', sizes: '(min-width: 900px) 40vw, 100vw', attrs: 'data-drift' })}</figure>
     <div>
       <p class="lq-mark" aria-hidden="true">“</p>
       <blockquote class="lq-quote" data-split aria-label="${esc(t(q.text))}"><p aria-hidden="true">${split(t(q.text))}</p></blockquote>
