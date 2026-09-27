@@ -140,6 +140,7 @@ function footer(c) {
       <p class="f-legal"><a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a><button class="linkish" data-consent-open>${esc(t(ui.footer.cookies))}</button></p>
     </div>
     <p class="f-proto">${esc(t(ui.footer.prototype))}</p>
+    <p class="f-wordmark" aria-hidden="true">CERFODES</p>
   </div>
 </footer>`;
 }
@@ -159,8 +160,8 @@ export function newsletterForm(c, id) {
 function consent(c) {
   const t = c.t;
   return `<div class="consent" data-consent hidden role="dialog" aria-live="polite" aria-label="Cookies">
-  ${dots()}<p>${esc(t(ui.consent.text))} <a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a></p>
-  <div><button class="btn btn-ghost-dark btn-sm" data-consent-choice="no">${esc(t(ui.consent.decline))}</button><button class="btn btn-yellow btn-sm" data-consent-choice="yes">${esc(t(ui.consent.accept))}</button></div>
+  <div class="consent-copy">${dots()}<p>${esc(t(ui.consent.text))} <a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a></p></div>
+  <div class="consent-actions"><button class="btn btn-ghost-dark btn-sm" data-consent-choice="no">${esc(t(ui.consent.decline))}</button><button class="btn btn-yellow btn-sm" data-consent-choice="yes">${esc(t(ui.consent.accept))}</button></div>
 </div>`;
 }
 
