@@ -142,10 +142,6 @@ export function mapSection(c, { headingTag = 'h2', withHead = true } = {}) {
     ${withHead ? `<div class="section-head split-head">${eyebrow(t(m.eyebrow), 'on-dark')}<div>${heading(headingTag, t(m.title), 'h2', 'map-title')}<p class="lead on-dark" data-reveal id="map-title-lead">${esc(t(m.lead))}</p></div></div>` : ''}
     <div class="map" data-map data-contact="${c.href('contact')}">
       <div class="map-controls">
-        <div class="seg" role="group" aria-label="Map view">
-          <button data-view="world" aria-pressed="true">${esc(t(m.world))}</button><button data-view="africa" aria-pressed="false">${esc(t(m.africa))}</button>
-          <span class="seg-ind" aria-hidden="true"></span>
-        </div>
         <label class="switch"><input type="checkbox" data-show-offices checked><span class="switch-ui" aria-hidden="true"></span>${esc(t(m.showOffices))}</label>
       </div>
       <div class="map-stage" data-reveal>

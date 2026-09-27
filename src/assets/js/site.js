@@ -23,15 +23,11 @@ function ready() {
 function nav() {
   const header = $('[data-nav]'); if (!header) return;
   const hero = $('[data-hero]');
-  let last = scrollY, ticking = false;
+  let ticking = false;
   const update = () => {
-    const y = scrollY;
     const heroEnd = hero ? hero.offsetHeight - 90 : 0;
-    header.classList.toggle('is-solid', !hero || y > heroEnd);
-    const menuOpen = $('.mobile-menu')?.classList.contains('open') || $('.login.open');
-    header.classList.toggle('is-hidden', !menuOpen && y > 240 && y > last + 4);
-    if (y < last - 4 || y < 240) header.classList.remove('is-hidden');
-    last = y; ticking = false;
+    header.classList.toggle('is-solid', !hero || scrollY > heroEnd);
+    ticking = false;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   update();
@@ -170,40 +166,13 @@ function accordions() {
   });
 }
 
-/* ---------- Segmented control indicator ---------- */
-function segIndicator(seg) {
-  const ind = $('.seg-ind', seg);
-  const move = () => { const b = $('[aria-pressed="true"]', seg); if (b) { ind.style.width = b.offsetWidth + 'px'; ind.style.transform = `translateX(${b.offsetLeft - 4}px)`; } };
-  ind.style.left = '4px'; move(); addEventListener('resize', move); document.fonts?.ready.then(move);
-  return move;
-}
-
 /* ---------- Interactive map ---------- */
 function map() {
   const root = $('[data-map]'); if (!root) return;
   const svg = $('.map-svg', root), tip = $('.map-tip', root), pop = $('[data-map-pop]', root), stage = $('.map-stage', root);
   const data = JSON.parse($('#office-data')?.textContent || '[]');
-  const views = JSON.parse(svg.dataset.views);
-  const seg = $('.seg', root); const moveSeg = segIndicator(seg);
   const nodes = $$('.m-node', svg);
   let current = -1, lastFocus = null;
-
-  // Views: animated zoom between world and Africa (Africa default on phones)
-  const parse = v => v.split(' ').map(Number);
-  let vb = parse(svg.getAttribute('viewBox')), anim;
-  const setView = (name, animate = true) => {
-    $$('[data-view]', seg).forEach(b => b.setAttribute('aria-pressed', b.dataset.view === name)); moveSeg();
-    const to = parse(views[name]);
-    cancelAnimationFrame(anim);
-    if (!animate || reduced) { vb = to; svg.setAttribute('viewBox', to.join(' ')); return; }
-    const from = vb.slice(), t0 = performance.now(), dur = 1100;
-    const ease = p => 1 - Math.pow(1 - p, 4);
-    const step = t => { const p = Math.min(1, (t - t0) / dur); vb = from.map((f, i) => f + (to[i] - f) * ease(p)); svg.setAttribute('viewBox', vb.join(' ')); if (p < 1) anim = requestAnimationFrame(step); };
-    anim = requestAnimationFrame(step);
-    closePop();
-  };
-  $$('[data-view]', seg).forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
-  if (matchMedia('(max-width: 700px)').matches) setView('africa', false);
 
   // Offices switch (default from CMS setting)
   const sw = $('[data-show-offices]', root);

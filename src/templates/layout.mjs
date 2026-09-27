@@ -116,25 +116,28 @@ function footer(c) {
         <p class="f-brief-text">${esc(t(ui.newsletter.text))}</p>
         ${newsletterForm(c, 'footer')}
       </div>
-      <div class="f-cols" data-stagger>
-        ${col(t(ui.footer.company), ['about', 'services', 'where', 'insights', 'careers', 'contact'].map(k => `<li><a href="${c.href(k)}">${esc(t(ui.nav[k]))}</a></li>`))}
-        ${col(t(ui.footer.access), [
-          `<li><a href="${c.root('portal/')}${c.fileLinks ? 'index.html' : ''}#consultant">${esc(t(ui.nav.portal))}</a></li>`,
-          `<li><a href="${c.root('portal/')}${c.fileLinks ? 'index.html' : ''}#admin">${esc(t(ui.nav.admin))}</a></li>`,
-          `<li><a href="${c.root('client/')}${c.fileLinks ? 'index.html' : ''}">${esc(t(ui.nav.client))}</a></li>`,
-          `<li><a href="${c.root('cms/')}${c.fileLinks ? 'index.html' : ''}">${esc(t(ui.nav.cms))}</a></li>`
-        ])}
-        ${col(t(ui.footer.offices), offices.map(o => `<li><a href="${c.href('where')}#office-${o.id}">${esc(o.city)}, ${esc(t(o.country))}</a></li>`))}
-      </div>
-    </div>
-    <div class="f-logo" data-reveal="scale">
-      <img src="${c.asset('img/logo/logo-horizontal-white.webp')}" alt="CERFODES" width="1400" height="229" loading="lazy">
     </div>
     ${ciRule('on-dark')}
+    <div class="f-grid" data-stagger>
+      <div class="f-brand">
+        <a class="f-brand-logo" href="${c.href('home')}" aria-label="CERFODES ${esc(t(ui.common.home))}">
+          <img src="${c.asset('img/logo/logo-horizontal-white.webp')}" alt="CERFODES" width="170" height="28" loading="lazy">
+        </a>
+        <p class="f-brand-tag">${esc(t(ui.meta.tagline))}</p>
+        <p class="f-brand-soc"><a href="https://www.linkedin.com/company/cerfodes" aria-label="LinkedIn" class="soc">${icon.linkedin}</a><a href="https://x.com/cerfodes" aria-label="X" class="soc">${icon.x}</a></p>
+      </div>
+      ${col(t(ui.footer.company), ['about', 'services', 'where', 'insights', 'careers', 'contact'].map(k => `<li><a href="${c.href(k)}">${esc(t(ui.nav[k]))}</a></li>`))}
+      ${col(t(ui.footer.access), [
+        `<li><a href="${c.root('portal/')}${c.fileLinks ? 'index.html' : ''}#consultant">${esc(t(ui.nav.portal))}</a></li>`,
+        `<li><a href="${c.root('portal/')}${c.fileLinks ? 'index.html' : ''}#admin">${esc(t(ui.nav.admin))}</a></li>`,
+        `<li><a href="${c.root('client/')}${c.fileLinks ? 'index.html' : ''}">${esc(t(ui.nav.client))}</a></li>`,
+        `<li><a href="${c.root('cms/')}${c.fileLinks ? 'index.html' : ''}">${esc(t(ui.nav.cms))}</a></li>`
+      ])}
+      ${col(t(ui.footer.offices), offices.map(o => `<li><a href="${c.href('where')}#office-${o.id}">${esc(o.city)}, ${esc(t(o.country))}</a></li>`))}
+    </div>
     <div class="f-bottom">
-      <p>© ${new Date().getFullYear()} CERFODES. ${esc(t(ui.footer.rights))} · ${esc(t(ui.meta.tagline))}</p>
-      <p class="f-legal"><a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a><button class="linkish" data-consent-open>${esc(t(ui.footer.cookies))}</button>
-        <a href="https://www.linkedin.com/company/cerfodes" aria-label="LinkedIn" class="soc">${icon.linkedin}</a><a href="https://x.com/cerfodes" aria-label="X" class="soc">${icon.x}</a></p>
+      <p>© ${new Date().getFullYear()} CERFODES. ${esc(t(ui.footer.rights))}</p>
+      <p class="f-legal"><a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a><button class="linkish" data-consent-open>${esc(t(ui.footer.cookies))}</button></p>
     </div>
     <p class="f-proto">${esc(t(ui.footer.prototype))}</p>
   </div>

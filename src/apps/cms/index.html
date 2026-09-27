@@ -13,15 +13,28 @@
 <body class="app">
 
 <div class="gate" data-gate>
-  <div class="card gate-card">
-    <a class="nav-logo" href="../en/"><img src="../assets/img/logo/logo-full-colour.webp" alt="CERFODES" width="200" height="63"></a>
-    <h1 class="h3">Website CMS</h1>
-    <p class="lead">Editors publish EN/FR pages, triage leads and manage emails and integrations from here. Sign in with Microsoft 365 SSO + 2FA.</p>
-    <button class="gate-sso" data-sso type="button">
-      <svg width="18" height="18" viewBox="0 0 21 21"><rect width="9" height="9" x="1" y="1" fill="#f25022"/><rect width="9" height="9" x="11" y="1" fill="#7fba00"/><rect width="9" height="9" x="1" y="11" fill="#00a4ef"/><rect width="9" height="9" x="11" y="11" fill="#ffb900"/></svg>
-      Continue with Microsoft 365
-    </button>
-    <p class="gate-note">Prototype: any sign-in succeeds. A 2FA and new-device check runs on every real sign-in.</p>
+  <aside class="gate-brand">
+    <a class="nav-logo" href="../en/"><img src="../assets/img/logo/logo-horizontal-white.webp" alt="CERFODES" width="156" height="25"></a>
+    <div class="gate-brand-copy">
+      <p class="eyebrow on-dark"><span class="dots on-dark" aria-hidden="true"><i></i><i></i><i></i></span><span>Internal platform</span></p>
+      <h1>Website CMS</h1>
+      <p class="lead on-dark">Editors publish EN/FR pages, triage leads and manage emails and integrations from here.</p>
+    </div>
+    <div class="ci-rule on-dark"><span class="dots on-dark" aria-hidden="true"><i></i><i></i><i></i></span><span class="ci-line"></span></div>
+    <p class="gate-brand-foot">Technology · Management · Consulting</p>
+  </aside>
+
+  <div class="gate-form-pane">
+    <a class="gate-back" href="../en/">&larr; Back to website</a>
+    <div class="gate-card">
+      <h2 class="h3">Sign in</h2>
+      <p class="lead">Sign in with Microsoft 365 SSO + 2FA.</p>
+      <button class="gate-sso" data-sso type="button">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="9" height="9" x="1" y="1" fill="#f25022"/><rect width="9" height="9" x="11" y="1" fill="#7fba00"/><rect width="9" height="9" x="1" y="11" fill="#00a4ef"/><rect width="9" height="9" x="11" y="11" fill="#ffb900"/></svg>
+        Continue with Microsoft 365
+      </button>
+      <p class="gate-note">Prototype: any sign-in succeeds. A 2FA and new-device check runs on every real sign-in.</p>
+    </div>
   </div>
 </div>
 

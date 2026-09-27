@@ -104,8 +104,6 @@ export const ui = {
     eyebrow: { en: 'Where we work', fr: 'Où nous travaillons' },
     title: { en: 'Rooted in Africa, working worldwide', fr: 'Ancrés en Afrique, présents dans le monde' },
     lead: { en: 'Seven country offices and a network of partners let us deliver wherever our clients need us.', fr: 'Sept bureaux nationaux et un réseau de partenaires nous permettent d’intervenir partout où nos clients en ont besoin.' },
-    world: { en: 'World', fr: 'Monde' },
-    africa: { en: 'Africa', fr: 'Afrique' },
     showOffices: { en: 'Show offices', fr: 'Afficher les bureaux' },
     contactOffice: { en: 'Contact this office', fr: 'Contacter ce bureau' },
     directions: { en: 'Directions', fr: 'Itinéraire' },

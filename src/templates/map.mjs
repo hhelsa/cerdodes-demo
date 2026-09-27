@@ -24,11 +24,10 @@ export function landSvg() {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"><style>path{fill:#03127a;stroke:#ffffff;stroke-opacity:.55;stroke-width:.5;vector-effect:non-scaling-stroke}.c-office{fill:#1d6a8d;stroke-opacity:.9}.g{fill:none;stroke:#389DC9;stroke-opacity:.18;stroke-width:.5}</style><path class="g" d="${graticule}"/>${countriesSvg}</svg>`;
 }
 
+// CERFODES only has a presence in Africa, so the map is always cropped to the continent
+// (the underlying projection still covers the whole world; only the viewBox is limited).
 const [[ax0, ay0], [ax1, ay1]] = [projection([-22, 38]), projection([56, -36])];
-export const views = {
-  world: [0, 0, W, H].join(' '),
-  africa: [ax0 - 10, ay0, ax1 - ax0 + 20, ay1 - ay0].map(n => n.toFixed(1)).join(' ')
-};
+const africaView = [ax0 - 10, ay0, ax1 - ax0 + 20, ay1 - ay0].map(n => n.toFixed(1)).join(' ');
 
 export function officePoints() {
   return offices.map(o => { const [x, y] = projection([o.lon, o.lat]); return { ...o, x: +x.toFixed(1), y: +y.toFixed(1) }; });
@@ -49,7 +48,7 @@ export function mapSvg(c) {
   const nodes = pts.map((p, i) => `<g class="m-node" data-office="${p.id}" data-i="${i}" transform="translate(${p.x} ${p.y})" tabindex="0" role="button" aria-label="${esc(p.city)}, ${esc(L(p.country, c.lang))}" style="--i:${i}">
       <circle class="m-pulse" r="9"/><circle class="m-halo" r="9"/><circle class="m-dot" r="${p.hq ? 5.2 : 4.2}"/>
     </g>`).join('');
-  return `<svg class="map-svg" viewBox="${views.world}" data-views='${JSON.stringify(views)}' role="group" aria-label="World map of CERFODES offices">
+  return `<svg class="map-svg" viewBox="${africaView}" role="group" aria-label="Map of CERFODES offices across Africa">
     <image class="m-land" href="${c.asset('img/world-land.svg')}" x="0" y="0" width="${W}" height="${H}"/>
     <g class="m-lines">${lines}</g>
     <g class="m-nodes">${nodes}</g>
