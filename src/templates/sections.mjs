@@ -1,6 +1,6 @@
 // Reusable page sections. The homepage composes all of them in PRD order; inner pages reuse subsets.
 import { ui } from '../content/ui.mjs';
-import { services, offices, testimonials, team, caseStudies, faqs, insights, impact, beforeAfter, social } from '../content/collections.mjs';
+import { services, offices, testimonials, team, caseStudies, faqs, insights, impact, beforeAfter, social, clients } from '../content/collections.mjs';
 import { esc, L, pic, dots, eyebrow, ciRule, btn, heading, split, sampleTag, stars, icon, arrow, fmtDate } from './helpers.mjs';
 import { mapSvg } from './map.mjs';
 import { newsletterForm } from './layout.mjs';
@@ -52,6 +52,23 @@ export function featured(c) {
       <p class="featured-count" data-reveal><span class="count" data-count="${m.value}" data-suffix="${m.suffix}">${m.value.toLocaleString(c.lang === 'fr' ? 'fr-FR' : 'en-GB')}${m.suffix}</span><span class="count-label">${esc(t(m.label))} ${sampleTag(c, cs.placeholder)}</span></p>
       <p class="lead" data-reveal>${esc(t(cs.challenge))}</p>
       <p data-reveal><a class="link-arrow" href="#case-study">${esc(t(ui.featured.link))} ${arrow}</a></p>
+    </div>
+  </div>
+</section>`;
+}
+
+export function clientsSection(c) {
+  const t = c.t;
+  const logo = cl => `<li class="client-logo"><img src="${c.asset(`img/clients/${cl.logo}.webp`)}" width="${cl.w}" height="${cl.h}" alt="${esc(t(cl.name))}" loading="lazy" decoding="async"></li>`;
+  const track = clients.map(logo).join('');
+  return `<section class="section clients" aria-labelledby="clients-title">
+  <div class="wrap">
+    <div class="section-head center">${eyebrow(t(ui.clients.eyebrow))}${heading('h2', t(ui.clients.title), 'h2', 'clients-title')}</div>
+  </div>
+  <div class="client-marquee" data-marquee>
+    <div class="client-track">
+      <ul class="client-set">${track}</ul>
+      <ul class="client-set" aria-hidden="true">${track}</ul>
     </div>
   </div>
 </section>`;

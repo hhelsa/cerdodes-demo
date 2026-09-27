@@ -223,6 +223,40 @@ export const beforeAfter = {
   placeholder: true
 };
 
+// Client logos, extracted from CERFODES's previous website. Real clients, not placeholders.
+export const clients = [
+  { id: 'mathematica', name: 'Mathematica', logo: 'mathematica', w: 480, h: 289 },
+  { id: 'gates-foundation', name: 'Bill & Melinda Gates Foundation', logo: 'gates-foundation', w: 468, h: 302 },
+  { id: 'irc', name: 'International Rescue Committee', logo: 'irc', w: 386, h: 516 },
+  { id: 'giz', name: 'GIZ', logo: 'giz', w: 402, h: 168 },
+  { id: 'sos-childrens-villages', name: 'SOS Children’s Villages International', logo: 'sos-childrens-villages', w: 422, h: 170 },
+  { id: 'stromme-foundation', name: 'Strømme Foundation', logo: 'stromme-foundation', w: 480, h: 176 },
+  { id: 'roads-authority-malawi', name: 'Roads Authority Malawi', logo: 'roads-authority-malawi', w: 464, h: 384 },
+  { id: 'crs', name: 'Catholic Relief Services', logo: 'crs', w: 434, h: 314 },
+  { id: 'amref', name: 'Amref Health Africa', logo: 'amref', w: 458, h: 314 },
+  { id: 'alive-thrive', name: 'Alive & Thrive', logo: 'alive-thrive', w: 438, h: 312 },
+  { id: 'aflatoun', name: 'Aflatoun International', logo: 'aflatoun', w: 456, h: 136 },
+  { id: 'afd', name: 'Agence Française de Développement', logo: 'afd', w: 298, h: 460 },
+  { id: 'wfp', name: 'World Food Programme', logo: 'wfp', w: 342, h: 202 },
+  { id: 'nestle', name: 'Nestlé', logo: 'nestle', w: 376, h: 154 },
+  { id: 'wateraid', name: 'WaterAid', logo: 'wateraid', w: 450, h: 172 },
+  { id: 'usda', name: 'USDA', logo: 'usda', w: 368, h: 294 },
+  { id: 'undp', name: 'UNDP', logo: 'undp', w: 204, h: 404 },
+  { id: 'unicef', name: 'UNICEF', logo: 'unicef', w: 384, h: 386 },
+  { id: 'uemoa', name: 'UEMOA', logo: 'uemoa', w: 242, h: 316 },
+  { id: 'tearfund', name: 'Tearfund', logo: 'tearfund', w: 466, h: 204 },
+  { id: 'tcn', name: 'Transmission Company of Nigeria', logo: 'tcn', w: 466, h: 318 },
+  { id: 'solidar-suisse', name: 'Solidar Suisse', logo: 'solidar-suisse', w: 466, h: 170 },
+  { id: 'sdc', name: 'Swiss Agency for Development and Cooperation', logo: 'sdc', w: 456, h: 242 },
+  { id: 'save-the-children', name: 'Save the Children', logo: 'save-the-children', w: 384, h: 294 },
+  { id: 'government-partner', name: { en: 'Government partner', fr: 'Partenaire gouvernemental' }, logo: 'government-partner', w: 420, h: 378 },
+  { id: 'population-media-center', name: 'Population Media Center', logo: 'population-media-center', w: 414, h: 170 },
+  { id: 'plan-international', name: 'Plan International', logo: 'plan-international', w: 452, h: 170 },
+  { id: 'pathfinder', name: 'Pathfinder International', logo: 'pathfinder', w: 434, h: 170 },
+  { id: 'afdb', name: 'African Development Bank Group', logo: 'afdb', w: 312, h: 204 },
+  { id: 'mcc', name: 'Millennium Challenge Corporation', logo: 'mcc', w: 398, h: 170 }
+];
+
 export const social = [
   { network: 'LinkedIn', date: '2026-09-18', text: { en: 'Our Kampala team has just wrapped up a capacity-building week on results-based management with 40 public officers.', fr: 'Notre équipe de Kampala vient de conclure une semaine de renforcement des capacités en gestion axée sur les résultats avec 40 agents publics.' }, image: 'presenter' },
   { network: 'X', date: '2026-09-12', text: { en: 'New on the CERFODES Brief: why honest condition data should drive connectivity investment.', fr: 'Nouveau dans le CERFODES Brief : pourquoi des données fiables doivent guider l’investissement dans la connectivité.' } },
