@@ -59,9 +59,13 @@ export function beforeAfterSection(c) {
   return `<section class="section ba" aria-labelledby="ba-title">
   <div class="wrap">
     <div class="section-head center">${eyebrow(t(ui.beforeAfter.eyebrow))}${heading('h2', t(ui.beforeAfter.title), 'h2', 'ba-title')} ${sampleTag(c, beforeAfter.placeholder)}</div>
-    <div class="ba-grid">
-      <div class="ba-card ba-before" data-reveal><h3>${esc(t(ui.beforeAfter.before))}</h3>${list(beforeAfter.before, false)}</div>
-      <div class="ba-card ba-after" data-reveal><h3>${dots()} ${esc(t(ui.beforeAfter.after))}</h3>${list(beforeAfter.after, true)}</div>
+  </div>
+  <div class="ba-pin-wrap" data-ba-pin>
+    <div class="wrap ba-stage">
+      <div class="ba-grid">
+        <div class="ba-card ba-before" data-reveal><h3>${esc(t(ui.beforeAfter.before))}</h3>${list(beforeAfter.before, false)}</div>
+        <div class="ba-card ba-after" data-reveal><h3>${dots()} ${esc(t(ui.beforeAfter.after))}</h3>${list(beforeAfter.after, true)}</div>
+      </div>
     </div>
   </div>
 </section>`;

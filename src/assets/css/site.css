@@ -224,6 +224,15 @@ ul[class], ol[class] { list-style: none; }
 .ba-ico svg { width: 15px; }
 .ba-after .ba-ico { background: var(--yellow); color: var(--royal); }
 
+/* Scroll-linked reveal (desktop, JS, motion allowed): pin the comparison while
+   scrolling drives --wipe 0→1, so "after" arrives and "before" recedes in place. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .js .ba-pin-wrap { position: relative; height: 200vh; }
+  .js .ba-stage { position: sticky; top: 110px; }
+  .js .ba-before { transition: opacity .08s linear, transform .08s linear; transform: scale(calc(1 - var(--wipe, 0) * .04)); opacity: calc(1 - var(--wipe, 0) * .35); }
+  .js .ba-after { transition: opacity .08s linear, transform .08s linear, clip-path .08s linear; clip-path: inset(0 0 0 calc((1 - var(--wipe, 0)) * 12%)); transform: translateX(calc((1 - var(--wipe, 0)) * 32px)); opacity: calc(.4 + var(--wipe, 0) * .6); box-shadow: 0 30px 70px -30px rgba(1,8,52,.4); }
+}
+
 /* ---------- Tabs (sliding indicator) ---------- */
 .tab-bar { position: relative; display: inline-flex; gap: 4px; padding: 5px; border-radius: var(--radius-pill); background: var(--royal-50); border: 1px solid var(--line); margin-bottom: 32px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .tab-bar [role="tab"] { position: relative; z-index: 1; border: 0; background: none; padding: .75em 1.4em; border-radius: var(--radius-pill); font-weight: var(--fw-bold); color: var(--royal); white-space: nowrap; transition: color .35s; }
