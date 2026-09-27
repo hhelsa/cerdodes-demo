@@ -23,13 +23,19 @@ function ready() {
 function nav() {
   const header = $('[data-nav]'); if (!header) return;
   const hero = $('[data-hero]');
+  // Chameleon tone: the pill goes translucent-dark over dark-toned sections (hero, .dark, footer)
+  // and solid-light everywhere else, instead of only toggling once past the hero.
+  const toneSections = () => $$('.dark, [data-hero], .footer').map(el => ({ top: el.offsetTop, bottom: el.offsetTop + el.offsetHeight }));
+  let ranges = hero ? toneSections() : [];
   let ticking = false;
   const update = () => {
-    const heroEnd = hero ? hero.offsetHeight - 90 : 0;
-    header.classList.toggle('is-solid', !hero || scrollY > heroEnd);
+    const probe = scrollY + 64;
+    const onDark = hero && ranges.some(r => probe >= r.top && probe < r.bottom);
+    header.classList.toggle('is-solid', !onDark);
     ticking = false;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', () => { ranges = hero ? toneSections() : ranges; update(); });
   update();
 
   // Log in menu
@@ -218,7 +224,7 @@ function map() {
     $$('[data-open-office]', root).forEach(b => b.classList.toggle('active', b.dataset.openOffice === o.id));
   }
   function position(node) {
-    if (matchMedia('(max-width: 700px)').matches) { pop.style.left = pop.style.top = ''; return; }
+    if (matchMedia('(max-width: 640px)').matches) { pop.style.left = pop.style.top = ''; return; }
     const r = node.getBoundingClientRect(), m = root.getBoundingClientRect();
     const w = pop.offsetWidth || 340, h = pop.offsetHeight || 460;
     let x = r.left - m.left + 24, y = r.top - m.top - h / 2;

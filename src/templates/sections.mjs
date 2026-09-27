@@ -74,6 +74,7 @@ export function servicesTabs(c) {
     const q = byId(testimonials, s.quote.testimonial);
     return `<div class="svc-panel" role="tabpanel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" ${i ? 'hidden' : ''}>
       <div class="svc-copy">
+        <span class="svc-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
         <h3 class="h3">${esc(t(s.tagline))}</h3>
         <p>${esc(t(s.description))}</p>
         <h4 class="svc-sub">${esc(t(ui.services.offerings))} ${sampleTag(c, s.placeholder)}</h4>
@@ -178,7 +179,7 @@ export function teamSection(c) {
   <div class="wrap">
     <div class="section-head split-head">${eyebrow(t(tm.eyebrow))}${heading('h2', t(tm.title), 'h2', 'team-title')}</div>
     <div class="team-grid" data-stagger>
-      ${team.map(p => `<article class="person zoom">${pic(c, p.portrait, { alt: '', sizes: '(min-width: 900px) 30vw, 90vw' })}<div class="person-meta"><h3>${esc(p.name)} ${sampleTag(c, p.placeholder)}</h3><p>${esc(t(p.role))}</p>
+      ${team.map((p, i) => `<article class="person zoom"><span class="person-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>${pic(c, p.portrait, { alt: '', sizes: '(min-width: 900px) 30vw, 90vw' })}<div class="person-meta"><h3>${esc(p.name)} ${sampleTag(c, p.placeholder)}</h3><p>${esc(t(p.role))}</p>
         <p class="person-soc"><a href="#" aria-label="LinkedIn">${icon.linkedin}</a><a href="#" aria-label="X">${icon.x}</a></p></div></article>`).join('')}
     </div>
     <div class="hiring" data-reveal>
@@ -219,7 +220,7 @@ export function impactSection(c) {
   <div class="wrap">
     <div class="section-head split-head">${eyebrow(t(ui.impact.eyebrow))}${heading('h2', t(ui.impact.title), 'h2', 'impact-title')}</div>
     <div class="impact-grid">
-      <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
+      <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="figure-badge">${dots()}</span><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
       <figure class="chart" data-chart data-reveal>
         <figcaption>${esc(t(impact.chart.title))} ${sampleTag(c, impact.chart.placeholder)}</figcaption>
         <div class="bars" role="img" aria-label="${esc(t(impact.chart.title))}: ${impact.chart.series.map(([y, v]) => `${y} ${v}`).join(', ')}">
