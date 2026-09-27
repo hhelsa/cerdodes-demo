@@ -88,15 +88,64 @@ function reveals() {
   }
 }
 
-/* ---------- Hero parallax ---------- */
+/* ---------- Hero parallax + scroll-linked recede ---------- */
 function parallax() {
   if (reduced) return;
   const el = $('[data-parallax]'); if (!el) return;
   const h = el.parentElement;
+  const inner = $('.hero-inner');
   addEventListener('scroll', () => requestAnimationFrame(() => {
     const y = scrollY; if (y > h.offsetHeight) return;
     el.style.transform = `translate3d(0, ${y * 0.28}px, 0)`;
+    if (inner) {
+      const p = Math.min(1, y / (h.offsetHeight * .7));
+      inner.style.opacity = 1 - p * .9;
+      inner.style.transform = `translate3d(0, ${y * .15}px, 0) scale(${1 - p * .05})`;
+    }
   }), { passive: true });
+}
+
+/* ---------- Scroll sequence engine ----------
+   A wrap element gets extra scroll height (CSS) so it can stay pinned while
+   scroll position maps to a 0→1 progress value. IntersectionObserver only
+   gates whether the (real-time) scroll+rAF listener is attached at all, so
+   pages with several sequences aren't all computing on every scroll frame. */
+function scrollSequence(wrapEl, onProgress) {
+  if (reduced || !wrapEl) return;
+  let active = false, ticking = false;
+  const update = () => {
+    ticking = false;
+    const total = wrapEl.offsetHeight - innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -wrapEl.getBoundingClientRect().top / total)) : 0;
+    onProgress(p);
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  const io = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !active) { active = true; addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', update); update(); }
+    else if (!e.isIntersecting && active) { active = false; removeEventListener('scroll', onScroll); removeEventListener('resize', update); }
+  }, { rootMargin: '15% 0px 15% 0px' });
+  io.observe(wrapEl);
+}
+
+/* ---------- Curtain sequences: an oversized heading shrinks/rises while the
+   section's own content sharpens beneath it, in place of a plain fade-in.
+   Reused across every major section boundary for one consistent grammar
+   (Kora-style), driven entirely by --p custom properties CSS already reads. */
+function curtainSequences() {
+  if (reduced) return;
+  $$('[data-curtain]').forEach(wrap => scrollSequence(wrap, p => wrap.style.setProperty('--p', p.toFixed(3))));
+
+  // Process: scroll position additionally drives which accordion step is open,
+  // reusing the existing click handler so the image crossfade stays in sync.
+  const proc = $('[data-curtain-steps]');
+  if (proc) {
+    const buttons = $$('.acc-btn', proc);
+    let last = -1;
+    scrollSequence(proc, p => {
+      const idx = Math.min(buttons.length - 1, Math.floor(p * buttons.length));
+      if (idx !== last) { last = idx; buttons[idx].click(); }
+    });
+  }
 }
 
 /* ---------- Tabs with sliding indicator ---------- */
@@ -380,4 +429,4 @@ function consent() {
   $$('[data-consent-open]').forEach(b => b.addEventListener('click', () => (box.hidden = false)));
 }
 
-ready(); nav(); reveals(); parallax(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();
+ready(); nav(); reveals(); parallax(); curtainSequences(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();

@@ -224,6 +224,40 @@ ul[class], ol[class] { list-style: none; }
 .ba-ico svg { width: 15px; }
 .ba-after .ba-ico { background: var(--yellow); color: var(--royal); }
 
+/* ---------- Curtain scroll sequences (desktop, JS, motion allowed) ----------
+   Shared across every major section boundary: the pin-wrap supplies extra
+   scroll height, .curtain-pin stays sticky for that range, and --p (0→1,
+   written by curtainSequences() in site.js) drives a heading that starts
+   oversized/covering and shrinks away as the section's own content sharpens
+   beneath it — one repeated grammar instead of a fade per section. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .js .curtain-pin-wrap { position: relative; height: 200vh; }
+  .js .curtain-pin { position: sticky; top: 0; min-height: 100vh; display: flex; align-items: center; }
+  .js .curtain-pin > .wrap { width: 100%; }
+
+  .js [data-curtain] .section-head,
+  .js [data-curtain] .who-grid > div:first-child,
+  .js [data-curtain] .testi-side > .eyebrow,
+  .js [data-curtain] .testi-side > .h2,
+  .js [data-curtain] .process-grid > div:last-child > .eyebrow,
+  .js [data-curtain] .process-grid > div:last-child > .h2 {
+    position: relative; z-index: 2; transform-origin: center center;
+    transition: transform .08s linear;
+    transform: scale(calc(1.55 - var(--p, 0) * .55)) translateY(calc((1 - var(--p, 0)) * 7vh));
+  }
+  .js [data-curtain] .impact-grid,
+  .js [data-curtain] .ba-grid,
+  .js [data-curtain] .who-grid > .who-rows,
+  .js [data-curtain] .testi-acc,
+  .js [data-curtain] .process-media {
+    position: relative; z-index: 1;
+    transition: opacity .08s linear, filter .08s linear, transform .08s linear;
+    opacity: calc(.2 + var(--p, 0) * .8);
+    filter: blur(calc((1 - var(--p, 0)) * 12px));
+    transform: scale(calc(.94 + var(--p, 0) * .06));
+  }
+}
+
 /* ---------- Tabs (sliding indicator) ---------- */
 .tab-bar { position: relative; display: inline-flex; gap: 4px; padding: 5px; border-radius: var(--radius-pill); background: var(--royal-50); border: 1px solid var(--line); margin-bottom: 32px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .tab-bar [role="tab"] { position: relative; z-index: 1; border: 0; background: none; padding: .75em 1.4em; border-radius: var(--radius-pill); font-weight: var(--fw-bold); color: var(--royal); white-space: nowrap; transition: color .35s; }
@@ -250,7 +284,11 @@ ul[class], ol[class] { list-style: none; }
 .svc-media img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Who we are ---------- */
-.who { overflow: hidden; }
+/* Circles clip via their own layer (not .who) so position:sticky still works for
+   descendants — overflow:hidden on an ancestor makes it the "nearest scrolling
+   ancestor" for sticky purposes, and since it never actually scrolls, sticky
+   inside it goes inert. */
+.who-circles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .who-circles i { position: absolute; border-radius: 50%; pointer-events: none; }
 .who-circles i:first-child { width: 440px; height: 440px; right: -180px; bottom: -250px; background: var(--yellow); animation: drift-a 22s ease-in-out infinite; }
 .who-circles i:last-child { width: 320px; height: 320px; right: -150px; bottom: -80px; background: var(--pelorous); animation: drift-b 26s ease-in-out infinite; }
