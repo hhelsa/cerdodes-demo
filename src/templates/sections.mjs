@@ -61,15 +61,11 @@ export function beforeAfterSection(c) {
   const t = c.t;
   const list = (items, ok) => `<ul class="ba-list" data-stagger>${items.map(i => `<li><span class="ba-ico">${ok ? icon.check : icon.cross}</span>${esc(t(i))}</li>`).join('')}</ul>`;
   return `<section class="section ba" aria-labelledby="ba-title">
-  <div class="curtain-pin-wrap" data-curtain>
-    <div class="curtain-pin">
-      <div class="wrap">
-        <div class="section-head center">${eyebrow(t(ui.beforeAfter.eyebrow))}${heading('h2', t(ui.beforeAfter.title), 'h2', 'ba-title')} ${sampleTag(c, beforeAfter.placeholder)}</div>
-        <div class="ba-grid">
-          <div class="ba-card ba-before" data-reveal><h3>${esc(t(ui.beforeAfter.before))}</h3>${list(beforeAfter.before, false)}</div>
-          <div class="ba-card ba-after" data-reveal><h3>${dots()} ${esc(t(ui.beforeAfter.after))}</h3>${list(beforeAfter.after, true)}</div>
-        </div>
-      </div>
+  <div class="wrap">
+    <div class="section-head center">${eyebrow(t(ui.beforeAfter.eyebrow))}${heading('h2', t(ui.beforeAfter.title), 'h2', 'ba-title')} ${sampleTag(c, beforeAfter.placeholder)}</div>
+    <div class="ba-grid">
+      <div class="ba-card ba-before" data-reveal><h3>${esc(t(ui.beforeAfter.before))}</h3>${list(beforeAfter.before, false)}</div>
+      <div class="ba-card ba-after" data-reveal><h3>${dots()} ${esc(t(ui.beforeAfter.after))}</h3>${list(beforeAfter.after, true)}</div>
     </div>
   </div>
 </section>`;
@@ -80,7 +76,7 @@ export function servicesTabs(c) {
   const tabs = services.map((s, i) => `<button role="tab" id="tab-${s.id}" aria-controls="panel-${s.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(t(s.name))}</button>`).join('');
   const panels = services.map((s, i) => {
     const q = byId(testimonials, s.quote.testimonial);
-    return `<div class="svc-panel" role="tabpanel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" style="--i:${i}" ${i ? 'hidden' : ''}>
+    return `<div class="svc-panel" role="tabpanel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" ${i ? 'hidden' : ''}>
       <div class="svc-copy">
         <span class="svc-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
         <h3 class="h3">${esc(t(s.tagline))}</h3>
@@ -108,13 +104,9 @@ export function whoWeAre(c) {
   const t = c.t; const w = ui.who;
   return `<section class="section who dark" aria-labelledby="who-title">
   <div class="who-circles" aria-hidden="true"><i></i><i></i></div>
-  <div class="curtain-pin-wrap" data-curtain>
-    <div class="curtain-pin">
-      <div class="wrap who-grid">
-        <div>${eyebrow(t(w.eyebrow), 'on-dark')}${heading('h2', t(w.title), 'h1 caps', 'who-title')}</div>
-        <dl class="who-rows" data-stagger>${w.rows.map(r => `<div><dt>${esc(t(r.k))}</dt><dd>${esc(t(r.v))}</dd></div>`).join('')}</dl>
-      </div>
-    </div>
+  <div class="wrap who-grid">
+    <div>${eyebrow(t(w.eyebrow), 'on-dark')}${heading('h2', t(w.title), 'h1 caps', 'who-title')}</div>
+    <dl class="who-rows" data-stagger>${w.rows.map(r => `<div><dt>${esc(t(r.k))}</dt><dd>${esc(t(r.v))}</dd></div>`).join('')}</dl>
   </div>
   <div class="wrap three-dots">
     <div class="td-copy" data-reveal><h3 class="h3 caps">${esc(t(w.dotsTitle))}</h3><p>${esc(t(w.dotsText))}</p></div>
@@ -126,20 +118,16 @@ export function whoWeAre(c) {
 export function process(c) {
   const t = c.t; const p = ui.process;
   return `<section class="section process" aria-labelledby="proc-title">
-  <div class="curtain-pin-wrap" data-curtain data-curtain-steps>
-    <div class="curtain-pin">
-      <div class="wrap process-grid">
-        <div class="process-media" aria-hidden="true">${p.steps.map((s, i) => `<figure class="${i ? '' : 'active'}" data-step-img="${i}">${pic(c, s.img, { alt: '', sizes: '(min-width: 900px) 40vw, 100vw' })}</figure>`).join('')}
-          <span class="process-count"><b data-step-num>01</b>/04</span></div>
-        <div>
-          ${eyebrow(t(p.eyebrow))}${heading('h2', t(p.title), 'h2', 'proc-title')}
-          <div class="acc process-acc" data-accordion data-single data-process>
-            ${p.steps.map((s, i) => `<div class="acc-item ${i ? '' : 'open'}" data-reveal>
-              <h3><button class="acc-btn" aria-expanded="${i === 0}" aria-controls="step-${i}" id="step-b-${i}"><span class="acc-num">0${i + 1}</span><span class="acc-title">${esc(t(s.t))}</span><span class="acc-ico">${icon.plus}</span></button></h3>
-              <div class="acc-panel" id="step-${i}" role="region" aria-labelledby="step-b-${i}" ${i ? 'hidden' : ''}><div><p>${esc(t(s.d))}</p></div></div>
-            </div>`).join('')}
-          </div>
-        </div>
+  <div class="wrap process-grid">
+    <div class="process-media" aria-hidden="true">${p.steps.map((s, i) => `<figure class="${i ? '' : 'active'}" data-step-img="${i}">${pic(c, s.img, { alt: '', sizes: '(min-width: 900px) 40vw, 100vw' })}</figure>`).join('')}
+      <span class="process-count"><b data-step-num>01</b>/04</span></div>
+    <div>
+      ${eyebrow(t(p.eyebrow))}${heading('h2', t(p.title), 'h2', 'proc-title')}
+      <div class="acc process-acc" data-accordion data-single data-process>
+        ${p.steps.map((s, i) => `<div class="acc-item ${i ? '' : 'open'}" data-reveal>
+          <h3><button class="acc-btn" aria-expanded="${i === 0}" aria-controls="step-${i}" id="step-b-${i}"><span class="acc-num">0${i + 1}</span><span class="acc-title">${esc(t(s.t))}</span><span class="acc-ico">${icon.plus}</span></button></h3>
+          <div class="acc-panel" id="step-${i}" role="region" aria-labelledby="step-b-${i}" ${i ? 'hidden' : ''}><div><p>${esc(t(s.d))}</p></div></div>
+        </div>`).join('')}
       </div>
     </div>
   </div>
@@ -210,24 +198,20 @@ export function testimonialsSection(c) {
   const t = c.t; const ts = ui.testimonials;
   const avg = (testimonials.reduce((s, x) => s + x.rating, 0) / testimonials.length).toFixed(1);
   return `<section class="section testi" aria-labelledby="testi-title">
-  <div class="curtain-pin-wrap" data-curtain>
-    <div class="curtain-pin">
-      <div class="wrap testi-grid">
-        <div class="testi-side">
-          ${eyebrow(t(ts.eyebrow))}${heading('h2', t(ts.title), 'h2', 'testi-title')}
-          <div class="rating" data-reveal><strong class="rating-num">${avg.replace('.', c.lang === 'fr' ? ',' : '.')}</strong><span>/5</span>${stars(Math.round(avg))}<small>${esc(t(ts.rating))} · ${esc(t(ts.ratingSource))}</small></div>
-        </div>
-        <div class="acc testi-acc" data-accordion data-single data-autoplay="7000">
-          ${testimonials.map((q, i) => `<div class="acc-item ${i ? '' : 'open'}" data-reveal>
-            <h3><button class="acc-btn" aria-expanded="${i === 0}" aria-controls="tq-${i}" id="tq-b-${i}">
-              <span class="testi-avatar">${pic(c, q.photo, { alt: '', sizes: '56px' })}</span>
-              <span class="acc-title"><strong>${esc(q.name)}</strong><small>${esc(t(q.title))}, ${esc(t(q.org))}</small></span>
-              ${stars(q.rating)}<span class="acc-ico">${icon.plus}</span></button></h3>
-            <div class="acc-panel" id="tq-${i}" role="region" aria-labelledby="tq-b-${i}" ${i ? 'hidden' : ''}><div><blockquote><p>“${esc(t(q.quote))}”</p></blockquote><span class="chip">${esc(t(q.sector))}</span> ${sampleTag(c, q.placeholder)}</div></div>
-            <span class="acc-progress" aria-hidden="true"></span>
-          </div>`).join('')}
-        </div>
-      </div>
+  <div class="wrap testi-grid">
+    <div class="testi-side">
+      ${eyebrow(t(ts.eyebrow))}${heading('h2', t(ts.title), 'h2', 'testi-title')}
+      <div class="rating" data-reveal><strong class="rating-num">${avg.replace('.', c.lang === 'fr' ? ',' : '.')}</strong><span>/5</span>${stars(Math.round(avg))}<small>${esc(t(ts.rating))} · ${esc(t(ts.ratingSource))}</small></div>
+    </div>
+    <div class="acc testi-acc" data-accordion data-single data-autoplay="7000">
+      ${testimonials.map((q, i) => `<div class="acc-item ${i ? '' : 'open'}" data-reveal>
+        <h3><button class="acc-btn" aria-expanded="${i === 0}" aria-controls="tq-${i}" id="tq-b-${i}">
+          <span class="testi-avatar">${pic(c, q.photo, { alt: '', sizes: '56px' })}</span>
+          <span class="acc-title"><strong>${esc(q.name)}</strong><small>${esc(t(q.title))}, ${esc(t(q.org))}</small></span>
+          ${stars(q.rating)}<span class="acc-ico">${icon.plus}</span></button></h3>
+        <div class="acc-panel" id="tq-${i}" role="region" aria-labelledby="tq-b-${i}" ${i ? 'hidden' : ''}><div><blockquote><p>“${esc(t(q.quote))}”</p></blockquote><span class="chip">${esc(t(q.sector))}</span> ${sampleTag(c, q.placeholder)}</div></div>
+        <span class="acc-progress" aria-hidden="true"></span>
+      </div>`).join('')}
     </div>
   </div>
 </section>`;
@@ -237,20 +221,16 @@ export function impactSection(c) {
   const t = c.t; const max = Math.max(...impact.chart.series.map(s => s[1]));
   const fmt = n => n.toLocaleString(c.lang === 'fr' ? 'fr-FR' : 'en-GB');
   return `<section class="section impact" aria-labelledby="impact-title">
-  <div class="curtain-pin-wrap" data-curtain>
-    <div class="curtain-pin">
-      <div class="wrap">
-        <div class="section-head split-head">${eyebrow(t(ui.impact.eyebrow))}${heading('h2', t(ui.impact.title), 'h2', 'impact-title')}</div>
-        <div class="impact-grid">
-          <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="figure-badge">${dots()}</span><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
-          <figure class="chart" data-chart data-reveal>
-            <figcaption>${esc(t(impact.chart.title))} ${sampleTag(c, impact.chart.placeholder)}</figcaption>
-            <div class="bars" role="img" aria-label="${esc(t(impact.chart.title))}: ${impact.chart.series.map(([y, v]) => `${y} ${v}`).join(', ')}">
-              ${impact.chart.series.map(([y, v], i) => `<div class="bar" style="--h:${(v / max * 100).toFixed(1)}%;--i:${i}"><span class="bar-col"><span class="bar-val">${v}</span><span class="bar-fill ${i === impact.chart.series.length - 1 ? 'hi' : ''}"></span></span><span class="bar-x">${y}</span></div>`).join('')}
-            </div>
-          </figure>
+  <div class="wrap">
+    <div class="section-head split-head">${eyebrow(t(ui.impact.eyebrow))}${heading('h2', t(ui.impact.title), 'h2', 'impact-title')}</div>
+    <div class="impact-grid">
+      <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="figure-badge">${dots()}</span><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
+      <figure class="chart" data-chart data-reveal>
+        <figcaption>${esc(t(impact.chart.title))} ${sampleTag(c, impact.chart.placeholder)}</figcaption>
+        <div class="bars" role="img" aria-label="${esc(t(impact.chart.title))}: ${impact.chart.series.map(([y, v]) => `${y} ${v}`).join(', ')}">
+          ${impact.chart.series.map(([y, v], i) => `<div class="bar" style="--h:${(v / max * 100).toFixed(1)}%;--i:${i}"><span class="bar-col"><span class="bar-val">${v}</span><span class="bar-fill ${i === impact.chart.series.length - 1 ? 'hi' : ''}"></span></span><span class="bar-x">${y}</span></div>`).join('')}
         </div>
-      </div>
+      </figure>
     </div>
   </div>
 </section>`;
