@@ -140,7 +140,6 @@ function footer(c) {
       <p class="f-legal"><a href="${c.href('privacy')}">${esc(t(ui.footer.privacy))}</a><button class="linkish" data-consent-open>${esc(t(ui.footer.cookies))}</button></p>
     </div>
     <p class="f-proto">${esc(t(ui.footer.prototype))}</p>
-    <p class="f-wordmark" aria-hidden="true">CERFODES</p>
   </div>
 </footer>`;
 }

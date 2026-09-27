@@ -134,64 +134,16 @@ function scrollSequence(wrapEl, onProgress) {
   io.observe(wrapEl);
 }
 
-/* ---------- Curtain sequences: an oversized heading shrinks/rises while the
-   section's own content sharpens beneath it, in place of a plain fade-in.
-   Reused across every major section boundary for one consistent grammar
-   (Kora-style), driven entirely by --p custom properties CSS already reads. */
+/* ---------- Curtain sequence: hero only ----------
+   An oversized heading (well, the hero's own title/CTAs) recedes while the
+   pinned background zooms in — this used to also drive Before/After, Who We
+   Are, Process, Testimonials and Impact, but those sections are reused on
+   inner pages (About, Services) where the extra pin height and sticky
+   nesting didn't compose with the surrounding layout and produced cut-off,
+   overlapping content. Scoped back to the one section built for it. */
 function curtainSequences() {
   if (reduced) return;
   $$('[data-curtain]').forEach(wrap => scrollSequence(wrap, p => wrap.style.setProperty('--p', p.toFixed(3))));
-
-  // Process: scroll position additionally drives which accordion step is open,
-  // reusing the existing click handler so the image crossfade stays in sync.
-  const proc = $('[data-curtain-steps]');
-  if (proc) {
-    const buttons = $$('.acc-btn', proc);
-    let last = -1;
-    scrollSequence(proc, p => {
-      const idx = Math.min(buttons.length - 1, Math.floor(p * buttons.length));
-      if (idx !== last) { last = idx; buttons[idx].click(); }
-    });
-  }
-}
-
-/* ---------- Services: sticky-stacking cards (1024px+, JS, motion allowed) ----------
-   Below that (or no-js/reduced-motion) the plain tabs() click/keyboard
-   tablist below still works exactly as it does today: panels stay
-   hidden/shown one at a time, nothing here changes that base behaviour.
-   Above it, CSS (gated the same way) un-hides every panel and makes each
-   one sticky at a slightly deeper offset so they visually stack as the
-   next rolls over the last; this only keeps the tab bar's active state
-   and sliding indicator in sync with whichever card is topmost — it
-   never calls .click() on the tab buttons, since tabs()'s own handler
-   moves focus on click and that would steal focus on every scroll tick. */
-function serviceStack() {
-  if (reduced) return;
-  const root = $('#services .tabs'); if (!root) return;
-  const panels = $$('.svc-panel', root);
-  const tabList = $$('.tab-bar [role="tab"]', root);
-  const ind = $('.tab-ind', root);
-  const mq = matchMedia('(min-width: 1024px)');
-  const moveInd = t => { if (t && ind) { ind.style.width = t.offsetWidth + 'px'; ind.style.transform = `translateX(${t.offsetLeft}px)`; } };
-  const setActive = i => {
-    tabList.forEach((t, j) => { const on = j === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
-    moveInd(tabList[i]);
-  };
-  const io = new IntersectionObserver(entries => {
-    if (!mq.matches) return;
-    const top = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (top) setActive(panels.indexOf(top.target));
-  }, { threshold: [0.25, 0.5, 0.75, 0.95], rootMargin: '-96px 0px -30% 0px' });
-  panels.forEach(p => io.observe(p));
-
-  // Clear (or restore) the hidden attribute itself, not just its CSS display
-  // effect, so assistive tech sees exactly what's visually stacked/shown.
-  const apply = () => {
-    if (mq.matches) panels.forEach(p => (p.hidden = false));
-    else panels.forEach((p, i) => (p.hidden = !tabList[i] || tabList[i].getAttribute('aria-selected') !== 'true'));
-  };
-  apply();
-  mq.addEventListener('change', apply);
 }
 
 /* ---------- Asymmetric parallax drift ----------
@@ -500,4 +452,4 @@ function consent() {
   $$('[data-consent-open]').forEach(b => b.addEventListener('click', () => (box.hidden = false)));
 }
 
-ready(); nav(); reveals(); parallax(); curtainSequences(); serviceStack(); imageDrift(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();
+ready(); nav(); reveals(); parallax(); curtainSequences(); imageDrift(); tabs(); accordions(); map(); contactForm(); careersForm(); newsletter(); consent();
