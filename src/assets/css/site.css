@@ -125,7 +125,7 @@ ul[class], ol[class] { list-style: none; }
 .mobile-login small { color: rgba(255,255,255,.7); }
 
 @media (max-width: 1120px) {
-  .nav-links, .nav-actions > .login, .nav-actions > .btn, .nav-actions > .lang { display: none; }
+  .nav-links, .nav-actions > .login, .nav-actions > .btn { display: none; }
   .burger { display: block; }
   .nav-pill { padding: 8px 8px 8px 20px; }
 }
@@ -243,17 +243,21 @@ ul[class], ol[class] { list-style: none; }
   .client-logo img { opacity: 1; filter: none; }
 }
 
-/* ---------- Hero: sticky scroll-driven zoom reveal ----------
+/* ---------- Hero: sticky scroll-driven image reveal ----------
    .hero-pin-wrap shares the data-curtain discovery attribute (so the same
    scrollSequence() engine writes --p onto it) but not the curtain-pin class,
    so it never picks up the heading-shrink treatment above — it gets its own
-   zoom-while-pinned motion instead. Below 768px / reduced-motion, parallax()
-   in site.js keeps using its existing simple scrollY-based motion untouched. */
+   zoom-while-pinned motion instead. The hero content itself stays put and
+   fully readable for the whole pin (no scroll-linked fade): the image does
+   the "reveal" via a slow continuous zoom, and once the wrap's extra height
+   is scrolled through, position: sticky releases on its own and the next
+   section continues naturally underneath — no separate transition needed.
+   Below 768px / reduced-motion, parallax() in site.js keeps using its
+   existing simple scrollY-based motion untouched. */
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .js .hero-pin-wrap { position: relative; height: 210vh; --pd: clamp(0, calc((var(--p, 0) - .6) * 2.5), 1); }
+  .js .hero-pin-wrap { position: relative; height: 170vh; }
   .js .hero-pin { position: sticky; top: 0; }
-  .js .hero-media { transition: transform .08s linear; transform: scale(calc(1 + var(--p, 0) * .22)); }
-  .js .hero-inner { transition: opacity .08s linear, transform .08s linear; opacity: calc(1 - var(--pd) * .9); transform: translateY(calc(var(--pd) * -30px)) scale(calc(1 - var(--pd) * .05)); }
+  .js .hero-media { transition: transform .08s linear; transform: scale(calc(1 + var(--p, 0) * .28)); }
 }
 
 /* ---------- Tabs (sliding indicator) ---------- */
@@ -653,6 +657,7 @@ ul[class], ol[class] { list-style: none; }
   .f-grid { gap: 8px; }
   .who-rows > div { grid-template-columns: 1fr; gap: 6px; }
   .hero-inner { padding-top: 120px; }
+  .hero-media img { object-position: 82% 42%; }
   .hero-ctas .btn { flex: 1 1 auto; justify-content: space-between; }
   .case-card { max-width: none; width: 100%; }
   .hero-sectors .chip:nth-child(n+4) { display: none; }
