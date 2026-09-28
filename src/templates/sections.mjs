@@ -120,7 +120,7 @@ export function servicesTabs(c) {
 export function whoWeAre(c) {
   const t = c.t; const w = ui.who;
   return `<section class="section who dark" aria-labelledby="who-title">
-  <div class="who-circles" aria-hidden="true"><i></i><i></i></div>
+  <div class="who-circles" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap who-grid">
     <div>${eyebrow(t(w.eyebrow), 'on-dark')}${heading('h2', t(w.title), 'h1 caps', 'who-title')}</div>
     <dl class="who-rows" data-stagger>${w.rows.map(r => `<div><dt>${esc(t(r.k))}</dt><dd>${esc(t(r.v))}</dd></div>`).join('')}</dl>
@@ -241,7 +241,7 @@ export function impactSection(c) {
   <div class="wrap">
     <div class="section-head split-head">${eyebrow(t(ui.impact.eyebrow))}${heading('h2', t(ui.impact.title), 'h2', 'impact-title')}</div>
     <div class="impact-grid">
-      <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="figure-badge">${dots()}</span><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
+      <ul class="figures" data-stagger>${impact.figures.map(f => `<li><span class="count" data-count="${f.value}" data-suffix="${f.suffix}">${fmt(f.value)}${f.suffix}</span><span>${esc(t(f.label))} ${sampleTag(c, f.placeholder)}</span></li>`).join('')}</ul>
       <figure class="chart" data-chart data-reveal>
         <figcaption>${esc(t(impact.chart.title))} ${sampleTag(c, impact.chart.placeholder)}</figcaption>
         <div class="bars" role="img" aria-label="${esc(t(impact.chart.title))}: ${impact.chart.series.map(([y, v]) => `${y} ${v}`).join(', ')}">

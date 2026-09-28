@@ -73,7 +73,7 @@ export function serviceDetail(c, s) {
         ${sampleTag(c, s.placeholder)}
       </div>
       <aside class="sd-aside">
-        <blockquote class="svc-quote card" data-reveal><p>“${esc(t(q.quote))}”</p><footer>${esc(t(q.title))}, ${esc(t(q.org))} ${sampleTag(c, q.placeholder)}</footer></blockquote>
+        <blockquote class="svc-quote" data-reveal><p>“${esc(t(q.quote))}”</p><footer>${esc(t(q.title))}, ${esc(t(q.org))} ${sampleTag(c, q.placeholder)}</footer></blockquote>
         <div class="card sd-cta" data-reveal>${dots()}<h2 class="h3">${esc(t(ui.services.discuss))}</h2><p>${esc(t(ui.contact.lead))}</p>${btn(t(ui.nav.talk), c.href('contact'), { variant: 'yellow' })}</div>
       </aside>
     </div>

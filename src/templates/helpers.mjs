@@ -47,7 +47,7 @@ export function pic(c, name, { alt = '', cls = '', sizes = '100vw', eager = fals
 
 /** The three dots – mandatory brand device. Colours adapt through CSS custom properties. */
 export const dots = (cls = '') => `<span class="dots ${cls}" aria-hidden="true"><i></i><i></i><i></i></span>`;
-export const eyebrow = (text, cls = '') => `<p class="eyebrow ${cls}" data-reveal>${dots()}<span>${esc(text)}</span></p>`;
+export const eyebrow = (text, cls = '') => `<p class="eyebrow ${cls}">${dots()}<span>${esc(text)}</span></p>`;
 export const ciRule = (cls = '') => `<div class="ci-rule ${cls}" aria-hidden="true">${dots()}<span class="ci-line"></span></div>`;
 
 export const arrow = `<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
